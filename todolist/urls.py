@@ -21,6 +21,7 @@ from todo import views
 
 urlpatterns = [
     path("books/", views.books),
-    path("", views.index),
+    path("", views.todo_list),
     path("admin/", admin.site.urls),
+
 ]

@@ -1,6 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
+from .models import Todo
+
+
+def todo_list(request):
+    todos = Todo.objects.all()
+
+    return render(request, "todo/todolist.html",{"todos": todos})
 
 # Create your views here.
 def index(request):
@@ -10,4 +17,4 @@ def index(request):
 def books(request):
     my_books = {1:"Django", 2:"Python", 3:"JavaScript"}
     return HttpResponse(json.dumps(my_books),
-content_type = "application/json") 
+                        content_type = "application/json") 
