@@ -4,7 +4,19 @@ import json
 from .models import Todo
 
 
-def todo_list(request):
+# 1.新增view-todo.html
+# 2.將todo傳出到{{todo}}
+def view_todo(request,id):
+    todo = None
+    try:
+        todo = Todo.objects.get(id=id)
+    except Exception as e:
+        print(e)
+        
+    return render(request,"todo/view-todo.html", {"todo": todo})
+
+
+def todolist(request):
     todos = Todo.objects.all()
 
     return render(request, "todo/todolist.html",{"todos": todos})
@@ -16,5 +28,4 @@ def index(request):
 
 def books(request):
     my_books = {1:"Django", 2:"Python", 3:"JavaScript"}
-    return HttpResponse(json.dumps(my_books),
-                        content_type = "application/json") 
+    return HttpResponse(json.dumps(my_books),content_type = "application/json") 
