@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import json
 from .models import Todo
 from .forms import TodoForm
+from datetime import datetime
 
 
 def create_todo(request):
@@ -19,8 +20,7 @@ def create_todo(request):
    
 
 
-# 1.新增view-todo.html
-# 2.將todo傳出到{{todo}}
+
 def view_todo(request,id):
     message = ""
     try:
@@ -29,9 +29,17 @@ def view_todo(request,id):
     except Exception as e:
         print(e)
 
+    
     if request.method == "POST":
         form = TodoForm(request.POST, instance=todo)
-        form.save()
+        todo = form.save(commit=False)
+
+        if todo.completed:
+            todo.date_completed = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        else:
+            todo.date_completed = None
+        
+        todo.save()
         message = "更新成功"
         return redirect("todolist")
         
