@@ -22,13 +22,24 @@ def create_todo(request):
 # 1.新增view-todo.html
 # 2.將todo傳出到{{todo}}
 def view_todo(request,id):
-    todo = None
+    message = ""
     try:
         todo = Todo.objects.get(id=id)
+        form = TodoForm(instance=todo)
     except Exception as e:
         print(e)
+
+    if request.method == "POST":
+        form = TodoForm(request.POST, instance=todo)
+        form.save()
+        message = "更新成功"
+        return redirect("todolist")
         
-    return render(request,"todo/view-todo.html", {"todo": todo})
+    return render(request,"todo/view-todo.html", {"todo": todo,"form": form ,"message": message})
+
+
+
+
 
 
 def todolist(request):
