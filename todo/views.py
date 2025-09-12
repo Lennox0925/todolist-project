@@ -4,6 +4,32 @@ import json
 from .models import Todo
 
 
+
+def create_todo(request):
+    message = ""
+
+    # POST
+    if request.method == "POST":
+        print(request.POST)
+        title = request.POST.get("title")
+        if title== "":
+            print("標題欄位不能為空")
+            message = "標題欄位不能為空"
+        else:
+            text = request.POST.get("text")
+            important = request.POST.get("important")
+
+            important = True if important == "on" else False
+        
+            # 建立資料
+            todo = Todo.objects.create(title=title,text=text,important=important)
+            todo.save()
+            message = "建立成功"
+     
+    return render(request, "todo/create-todo.html", {"message": message})
+   
+
+
 # 1.新增view-todo.html
 # 2.將todo傳出到{{todo}}
 def view_todo(request,id):
