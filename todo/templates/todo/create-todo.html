@@ -20,18 +20,7 @@
     <h1>Create Todo</h1>
     <form action="" method="POST">
         {% csrf_token %}
-        <div>
-            <label for="">標題</label>
-            <input type="text" id="title" name="title">
-        </div>
-        <div>
-            <label for="">內容</label>
-            <textarea id="text" name="text"></textarea>
-        </div>
-        <div>
-            <input type="checkbox" id="important" name="important">
-            <label for="">重要</label>
-        </div>
+        {{ form }}
         <button type="submit">提交</button>
 
     </form>
