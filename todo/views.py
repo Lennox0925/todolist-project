@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 import json
 from .models import Todo
@@ -13,6 +13,7 @@ def create_todo(request):
         form = TodoForm(request.POST)
         form.save()
         message = "建立成功"
+        return redirect("todolist")
      
     return render(request, "todo/create-todo.html", {"message": message,"form": form})
    
@@ -31,7 +32,8 @@ def view_todo(request,id):
 
 
 def todolist(request):
-    todos = Todo.objects.all()
+    # order_by("-created") 由新到舊排列
+    todos = Todo.objects.all().order_by("-created")
 
     return render(request, "todo/todolist.html",{"todos": todos})
 

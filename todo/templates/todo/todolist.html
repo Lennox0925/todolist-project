@@ -17,6 +17,8 @@
 
 <body>
     <h1>TodoList</h1>
+    <h2><a href="{% url 'create-todo' %}">建立代辦事項</a></h2>
+
     {% for todo in todos %}
 
     <div class="todo">
