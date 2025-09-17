@@ -4,24 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>單一事項</title>
+    <title>建立代辦事項</title>
     <style>
-        .todo {
-            background-color: aqua;
-            border-radius: 12px;
-            padding: 12px;
-            margin: 6px;
-            width: 600px;
+        textarea {
+            height: 200px;
+            display: block;
+            width: 210px;
         }
     </style>
 </head>
 
 <body>
-    <h1>View Todo</h1>
+    <h1>Create Todo</h1>
     <form action="" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">更新</button>
+        {{ form }}
+        <button type="submit">提交</button>
     </form>
     {{message}}
 </body>

@@ -7,25 +7,32 @@
     <title>首頁</title>
     <style>
         .todo {
-            border: 1px solid black;
-            margin: 10px;
-            padding: 10px;
-            background-color: skyblue;
+            background-color: aqua;
+            border-radius: 12px;
+            padding: 12px;
+            margin: 6px;
+            width: 600px;
         }
     </style>
 </head>
 
 <body>
     <h1>TodoList</h1>
+    <a href="{% url 'create-todo' %}">建立代辦事項</a>
     {% for todo in todos %}
-
     <div class="todo">
+        <a href="{% url 'delete-todo' todo.id %}" onclick="return confirm('是否刪除?')">刪除</a>
         <h4>{{todo.created}}</h4>
         <a href="{% url 'viewtodo' todo.id %}">
             <h3>{{todo.title}}</h3>
         </a>
         <p>{{todo.text}}</p>
         <u>{{todo.important}}</u>
+        {% if todo.date_completed %}
+        <p>
+            完成時間:<u>{{todo.date_completed}}</u>
+        </p>
+        {% endif %}
     </div>
 
     {% endfor %}

@@ -7,26 +7,19 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = []
+    dependencies = [
+    ]
 
     operations = [
         migrations.CreateModel(
-            name="Todo",
+            name='Todo',
             fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                ("title", models.CharField(max_length=100)),
-                ("text", models.TextField(blank=True)),
-                ("created", models.DateTimeField(auto_now_add=True)),
-                ("date_completed", models.DateTimeField(blank=True, null=True)),
-                ("important", models.BooleanField(default=False)),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=100)),
+                ('text', models.TextField(blank=True)),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('date_completed', models.DateTimeField(blank=True, null=True)),
+                ('important', models.BooleanField(default=False)),
             ],
         ),
     ]
