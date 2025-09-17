@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>註冊頁面</title>
+</head>
+
+<body>
+    <h1>Register</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">註冊</button>
+    </form>
+    {{message}}
+
+
+</body>
+
+</html>
