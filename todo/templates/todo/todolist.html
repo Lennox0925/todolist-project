@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    <a href="{% url 'user-register' %}">註冊</a>
     <h1>TodoList</h1>
     <a href="{% url 'create-todo' %}">建立代辦事項</a>
     {% for todo in todos %}

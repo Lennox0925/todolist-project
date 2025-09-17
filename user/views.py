@@ -1,6 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth import login,logout, authenticate
+
+def user_login(request):
+    message = ''
+    if request.method=='POST':
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+        user=authenticate(request, username=username, password=password)
+        if not user:
+            message = '使用者名稱或密碼錯誤!'
+        else:
+            login(request, user)
+            message = '使用者登入成功!'
+            return redirect("todolist")
+
+    return render(request, 'user/login.html', {'message': message})
+
+
 
 # Create your views here.
 def user_register(request):
@@ -25,12 +43,9 @@ def user_register(request):
             else:
                  User.objects.create_user(username=username, password=password1).save()
                  message = '使用者註冊成功!'
+                 return redirect("user-login")
 
         # 使用者名稱已經存在    
       
             
-
-
-        
-
     return render(request, 'user/register.html', {'form': form, 'message': message})
