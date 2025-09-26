@@ -2,17 +2,22 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import json
 from .models import Todo
-from .forms import TodoForm
+from .forms import TodoForm, CreateTodoForm
 from datetime import datetime
 
 
 def create_todo(request):
     message = ""
-    form = TodoForm()
+    form = CreateTodoForm()
     # POST
     if request.method == "POST":
-        form = TodoForm(request.POST)
-        form.save()
+        form = CreateTodoForm(request.POST)
+        # 缺少綁定user
+        todo=form.save(commit=False)
+        todo.user=request.user
+        todo.save()
+
+
         message = "建立成功!"
         return redirect("todolist")
 
@@ -60,7 +65,10 @@ def view_todo(request, id):
 
 def todolist(request):
     # order_by 加上 - 號降序
-    todos = Todo.objects.all().order_by("-created")
+    #todos = Todo.objects.all().order_by("-created")
+    todos=None
+    if request.user.is_authenticated:
+        todos=Todo.objects.filter(user=request.user)
 
     return render(request, "todo/todolist.html", {"todos": todos})
 

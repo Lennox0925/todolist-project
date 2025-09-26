@@ -15,10 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-
 from django.urls import path
 from .views import create_todo, view_todo, delete_todo, todolist
-  
+
 
 urlpatterns = [
     path("create-todo/", create_todo, name="create-todo"),
